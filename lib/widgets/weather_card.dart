@@ -12,22 +12,25 @@ class WeatherCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "${weather["city"]}",
-              style: Theme.of(context).textTheme.headlineMedium,
+              weather["location"],
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             Text(
               "${weather["temperature"]}°C",
               style: Theme.of(context).textTheme.displaySmall,
             ),
             Text(
-              weather["condition"] ?? "N/A",
-              style: Theme.of(context).textTheme.titleLarge,
+              weather["condition"],
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 10),
             Text("Humidity: ${weather["humidity"]}%"),
             Text("Wind Speed: ${weather["windSpeed"]} km/h"),
+            Text("Pressure: ${weather["pressure"]} hPa"),
+            Text("Visibility: ${weather["visibility"]} m"),
           ],
         ),
       ),
