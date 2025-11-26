@@ -6,6 +6,21 @@ class WeatherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final location = "${weather['city'] ?? '-'}, ${weather['country'] ?? '-'}";
+    final current = weather['current'] ?? {};
+    final temperature = current['temperature']?.toString() ?? "-";
+    final windSpeed = current['windspeed']?.toString() ?? "-";
+
+    // Use first hourly entry for humidity, pressure, visibility (if current not available)
+    final firstHour =
+        (weather['hourly'] != null && weather['hourly'].isNotEmpty)
+        ? weather['hourly'][0]
+        : {};
+
+    final humidity = firstHour['humidity']?.toString() ?? "-";
+    final pressure = firstHour['pressure']?.toString() ?? "-";
+    final visibility = firstHour['visibility']?.toString() ?? "-";
+
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -14,23 +29,19 @@ class WeatherCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(location, style: Theme.of(context).textTheme.headlineSmall),
             Text(
-              weather["location"],
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            Text(
-              "${weather["temperature"]}°C",
+              "$temperature°C",
               style: Theme.of(context).textTheme.displaySmall,
             ),
             Text(
-              weather["condition"],
+              "Wind: $windSpeed km/h",
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 10),
-            Text("Humidity: ${weather["humidity"]}%"),
-            Text("Wind Speed: ${weather["windSpeed"]} km/h"),
-            Text("Pressure: ${weather["pressure"]} hPa"),
-            Text("Visibility: ${weather["visibility"]} m"),
+            Text("Humidity: $humidity%"),
+            Text("Pressure: $pressure hPa"),
+            Text("Visibility: $visibility m"),
           ],
         ),
       ),

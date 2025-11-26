@@ -11,30 +11,23 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<WeatherProvider>(context);
 
-    // Example coordinates, you can replace or make dynamic
     final double lat = 28.0;
     final double lon = 77.0;
 
     return Scaffold(
       appBar: AppBar(title: const Text("Weather App"), centerTitle: true),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             ElevatedButton(
-              onPressed: () {
-                provider.loadWeather(lat: lat, lon: lon);
-              },
+              onPressed: () => provider.loadWeather(lat: lat, lon: lon),
               child: Text("Load Weather (lat=$lat, lon=$lon)"),
             ),
-
             const SizedBox(height: 20),
-
             if (provider.loading) const CircularProgressIndicator(),
-
             if (provider.error != null)
               Text(provider.error!, style: const TextStyle(color: Colors.red)),
-
             if (provider.data != null) ...[
               WeatherCard(weather: provider.data!),
               const SizedBox(height: 20),
