@@ -11,8 +11,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<WeatherProvider>(context);
 
-    final double lat = 28.0;
-    final double lon = 77.0;
+    final double lat = 28.764511217284245;
+    final double lon = 77.50142269183864;
 
     return Scaffold(
       appBar: AppBar(title: const Text("Weather App"), centerTitle: true),
